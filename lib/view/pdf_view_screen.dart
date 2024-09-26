@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:open_file/open_file.dart';
+import 'package:get/get.dart';
+import 'package:open_file_plus/open_file_plus.dart';
+//import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
@@ -171,7 +173,6 @@ class PdfViewScreen extends StatelessWidget {
                       'Date of Submission:',
                       bounds: Rect.fromLTWH(dueSubmissionX, 670, 220, 100),
                       assignmentOnfont);
-                  
 
                   // ------------- Create Table Insert Data From List ------------- //
                   // Create a PdfGrid to display the cart items
@@ -201,8 +202,6 @@ class PdfViewScreen extends StatelessWidget {
                   //     backgroundBrush: PdfBrushes.blue,
                   //     textBrush: PdfBrushes.white,
                   //     font: PdfStandardFont(PdfFontFamily.timesRoman, 25));
-                  
-
 
                   // ------------- Save And Open File  ------------- //
                   // Save the PDF file to the local storage
@@ -211,12 +210,13 @@ class PdfViewScreen extends StatelessWidget {
                   await file.writeAsBytes(await document.save(), flush: true);
                   if (await file.exists()) {
                     // Open the PDF file
-                  final result =  await OpenFile.open(file.path);
-                  if(result.type != ResultType.done){
-                  // Get.snackbar("Ops", "Failed to open file: ${result.message}");
-                  } else {
-                  //  Get.snackbar("Ops", "File does not exist");
-                  }
+                    final result = await OpenFile.open(file.path);
+                    if (result.type != ResultType.done) {
+                      Get.snackbar(
+                          "Ops", "Failed to open file: ${result.message}");
+                    } else {
+                      Get.snackbar("Ops", "File does not exist");
+                    }
                   }
                 },
                 child: const Text('Generate Pdf'))

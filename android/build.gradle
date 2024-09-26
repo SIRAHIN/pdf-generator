@@ -1,5 +1,19 @@
+buildscript {
+    ext {
+        kotlin_version = '1.9.0'  // Latest stable Kotlin version
+        gradle_version = '8.0.2'  // Latest stable Gradle plugin version
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradle_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
 allprojects {
-    ext.kotlin_version = '1.7.10'
     repositories {
         google()
         mavenCentral()
@@ -13,6 +27,7 @@ subprojects {
 subprojects {
     project.evaluationDependsOn(":app")
 }
+
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
